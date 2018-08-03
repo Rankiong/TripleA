@@ -1,0 +1,185 @@
+fileFormatVersion: 2
+guid: 58a50cceca4abdc4e8cfb41747cd8b88
+timeCreated: 1533115963
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Camera
+    100002: //RootNode
+    100004: Circle
+    100006: Circle.001
+    100008: Circle.002
+    100010: Cube
+    100012: Lamp
+    100014: Plane
+    100016: Plane.001
+    100018: Plane.002
+    400000: Camera
+    400002: //RootNode
+    400004: Circle
+    400006: Circle.001
+    400008: Circle.002
+    400010: Cube
+    400012: Lamp
+    400014: Plane
+    400016: Plane.001
+    400018: Plane.002
+    2000000: Camera
+    2100000: Invisible
+    2100002: Plagia
+    2100004: Troncos
+    2100006: Legno02
+    2100008: Intonaco
+    2100010: Pavimento
+    2100012: Legno01
+    2100014: Petra02
+    2300000: Circle
+    2300002: Circle.001
+    2300004: Circle.002
+    2300006: Cube
+    2300008: Plane
+    2300010: Plane.001
+    2300012: Plane.002
+    3300000: Circle
+    3300002: Circle.001
+    3300004: Circle.002
+    3300006: Cube
+    3300008: Plane
+    3300010: Plane.001
+    3300012: Plane.002
+    4300000: Plane.002
+    4300002: Plane.001
+    4300004: Circle.002
+    4300006: Plane
+    4300008: Circle.001
+    4300010: Circle
+    4300012: Cube
+    6400000: Circle
+    6400002: Circle.001
+    6400004: Circle.002
+    6400006: Cube
+    6400008: Plane
+    6400010: Plane.001
+    6400012: Plane.002
+    10800000: Lamp
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Intonaco
+    second: {fileID: 2100000, guid: 4c0edd82a0f08d6408d20c82552ffab7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Invisible
+    second: {fileID: 2100000, guid: f99f789a2244b1447ae17fe8d4503d24, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Legno01
+    second: {fileID: 2100000, guid: 2b823cf9064f17a458ed01bb88d66574, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Legno02
+    second: {fileID: 2100000, guid: 167cc2a99fa6eb545a2b891a5ae2539e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pavimento
+    second: {fileID: 2100000, guid: e83df236242e2bc449cfafa3717a5215, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Petra02
+    second: {fileID: 2100000, guid: 28d65fea7ba8e0d48bc2faf254693855, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plagia
+    second: {fileID: 2100000, guid: d47aef3396447634c9a2fc74f729e561, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Troncos
+    second: {fileID: 2100000, guid: e5ecfb870666bd944be30132e339370f, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
