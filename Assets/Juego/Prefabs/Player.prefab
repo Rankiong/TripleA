@@ -234,7 +234,7 @@ MonoBehaviour:
   agachar: 2.5
   flotar: 5
   controlAereo: 12
-  sensibilidad: 2
+  sensibilidad: 1
   smoothing: 2
   slopeAngle: 50.00001
 --- !u!124 &124077814059363762

@@ -150,7 +150,7 @@ public class ControlPlayer : MonoBehaviour
 
     void OnAir()
     {
-        Vector3 direction = camara.transform.forward; direction.y = 0F;
+        /*Vector3 direction = camara.transform.forward; direction.y = 0F;
         Quaternion rotation = Quaternion.FromToRotation(Vector3.forward, direction);
 
         cuerpo.useGravity = true;
@@ -162,7 +162,7 @@ public class ControlPlayer : MonoBehaviour
             newVelocity = newVelocity.normalized * flotar;
 
         newVelocity.y = cuerpo.velocity.y;
-        cuerpo.velocity = newVelocity;
+        cuerpo.velocity = newVelocity;*/
     }
 
     protected void ProcessCollisions()
