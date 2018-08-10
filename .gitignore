@@ -3,3 +3,4 @@ Packages/
 Temp/
 *.sln
 Assets/Morralla/
+*.csproj
