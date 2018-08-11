@@ -4,11 +4,34 @@ using UnityEngine;
 
 public class SalaMovediza : MonoBehaviour {
 
+    GameObject[] goesSeguridad;
+    bool ComprobadorTrampa = false;
+
     private void OnTriggerEnter(Collider other)
     {
-        StartCoroutine("EliminacionDeBaldosas");
+        if (other.CompareTag("Player") && ComprobadorTrampa == false)
+        {
+            ComprobadorTrampa = true;
+            StartCoroutine("EliminacionDeBaldosas");
+        }
     }
 
+    private void Awake()
+    {
+        goesSeguridad = GameObject.FindGameObjectsWithTag("BaldosasPinchos");
+    }
+
+    private void OnEnable()
+    {
+        DeathZonePinchos.CuandoPlayerMuere += ResetBaldosas;
+    }
+
+    private void OnDisable()
+    {
+        DeathZonePinchos.CuandoPlayerMuere -= ResetBaldosas;
+    }
+
+    /*Comprobador del minijugo
     public void Comprobador()
     {
         if (Input.GetKeyDown(KeyCode.V))
@@ -16,17 +39,16 @@ public class SalaMovediza : MonoBehaviour {
             StartCoroutine("EliminacionDeBaldosas");
         }
 
-        if(Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.B))
         {
-            GameObject[] goes = GameObject.FindGameObjectsWithTag("BaldosasPinchos");
-            Debug.Log(goes.Length);
             for (int i = 0; i < 128; i++)
             {
-                goes[i].SetActive(true);
+                goesSeguridad[i].SetActive(true);
             }
         }
-    }
+    }*/
 
+    //Corrutina de eliminacion de baldosas
     IEnumerator EliminacionDeBaldosas()
     {
         for (int i = 0; i < 128; i++)
@@ -36,9 +58,14 @@ public class SalaMovediza : MonoBehaviour {
             yield return new WaitForSeconds(0.1f);
         }
     }
-
-    private void Update()
+    //Funcion que resetea el minijuego
+    public void ResetBaldosas()
     {
-        Comprobador();
+        StopCoroutine("EliminacionDeBaldosas");
+        ComprobadorTrampa = false;
+        for (int i = 0; i < 128; i++)
+        {
+            goesSeguridad[i].SetActive(true);
+        }
     }
 }
