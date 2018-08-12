@@ -21,11 +21,6 @@ public class CanvasManager : MonoBehaviour {
 
     Resolution[] resoluciones;
 
-    private void Awake()
-    {
-        DontDestroyOnLoad(this.gameObject);
-    }
-
     //Configurador de TRUE y FALSE para los subpaneles
     public void OnSubPanelSonido()
     {
@@ -128,7 +123,7 @@ public class CanvasManager : MonoBehaviour {
         PanelCreditos.SetActive(false);
     }
 
-    //Cambia las opciones graficas del juego
+    //Funciones de configuracion de las opciones del juego
     public void CambiandoGraficos()
     {
         if (DropdownGraficos.value == 0)
@@ -157,8 +152,6 @@ public class CanvasManager : MonoBehaviour {
         }
 
     }
-
-    //Cambia las resoluciones del juego
     public void CambiandoResoluciones()
     {
         resoluciones = Screen.resolutions;
@@ -185,8 +178,6 @@ public class CanvasManager : MonoBehaviour {
         DropdownResoluciones.RefreshShownValue();
 
     }
-
-    //Poner Fullscreen o windowed
     public void PonerFullscreen()
     {
         Resolution resolucion = Screen.currentResolution;
@@ -200,32 +191,26 @@ public class CanvasManager : MonoBehaviour {
             Screen.SetResolution(resolucion.width, resolucion.height, FullScreenMode.Windowed);
         }
     }
-
-    //Poner la resolucion que queramos
     public void PonerResolucion(int resolutionIndex)
     {
         Resolution resolucion = resoluciones[resolutionIndex];
         Screen.SetResolution(resolucion.width, resolucion.height, Screen.fullScreen);
     }
 
-    //Carga la escena del poblado
+    //Funciones mas tecnicas relacionadas con escenas y .exe
     public void CargarEscenaPoblado()
     {
         SceneManager.LoadScene(1);
     }
-
-    //Funcion para controlar el Canvas una vez cargada la siguiente escena
-    //public void ControlCanvas()
-    //{
-    //    if
-    //}
-
-    //Cierra el juego
     public void CerrarJuego()
     {
         Application.Quit();
     }
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
 
     private void Start()
     {
