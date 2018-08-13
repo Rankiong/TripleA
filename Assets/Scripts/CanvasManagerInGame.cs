@@ -226,7 +226,7 @@ public class CanvasManagerInGame : MonoBehaviour {
         }
         if (DropdownFullscreen.value == 1)
         {
-            Screen.SetResolution(resolucion.width, resolucion.height, FullScreenMode.Windowed);
+            Screen.fullScreen = false;
         }
     }
     public void PonerResolucion(int resolutionIndex)
