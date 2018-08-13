@@ -1877,6 +1877,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &184388322 stripped
+Animator:
+  m_PrefabParentObject: {fileID: 95944150015628404, guid: 8e353068ec08f66479e0e60e9865d909,
+    type: 2}
+  m_PrefabInternal: {fileID: 1412149470}
 --- !u!1 &185457795
 GameObject:
   m_ObjectHideFlags: 0
@@ -21390,6 +21395,21 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 95944150015628404, guid: 8e353068ec08f66479e0e60e9865d909,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 95264777493871010, guid: 8e353068ec08f66479e0e60e9865d909,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 95861588772609718, guid: 8e353068ec08f66479e0e60e9865d909,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8e353068ec08f66479e0e60e9865d909, type: 2}
   m_IsPrefabParent: 0
@@ -25555,8 +25575,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1723212541}
-  m_LocalRotation: {x: 0.034654126, y: 0.96483105, z: 0.16752706, w: -0.19958656}
-  m_LocalPosition: {x: 1199.1302, y: -20.956139, z: 1587.3904}
+  m_LocalRotation: {x: 0.22755574, y: 0.04438316, z: 0.010383429, w: -0.9726977}
+  m_LocalPosition: {x: 255.22797, y: -158.2491, z: -33.85591}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -27523,6 +27543,7 @@ MonoBehaviour:
   SubPanelSonido: {fileID: 826478858}
   SubPanelGraficos: {fileID: 1153043280}
   SubPanelCrosshair: {fileID: 1371056618}
+  AnimacionCrosshair: {fileID: 184388322}
   DropdownGraficos: {fileID: 0}
   DropdownResoluciones: {fileID: 0}
   DropdownFullscreen: {fileID: 0}

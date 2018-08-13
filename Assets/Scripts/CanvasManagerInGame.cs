@@ -17,6 +17,8 @@ public class CanvasManagerInGame : MonoBehaviour {
     public GameObject SubPanelGraficos;
     public GameObject SubPanelCrosshair;
 
+    public Animator AnimacionCrosshair;
+
     public TMP_Dropdown DropdownGraficos;
     public TMP_Dropdown DropdownResoluciones;
     public TMP_Dropdown DropdownFullscreen;
@@ -32,6 +34,7 @@ public class CanvasManagerInGame : MonoBehaviour {
             Time.timeScale = 0;
             Pausado = true;
             PanelPausa.SetActive(true);
+            Cursor.visible = true;
             //Apagar crosshair
 
         }
@@ -39,6 +42,8 @@ public class CanvasManagerInGame : MonoBehaviour {
         {
             Time.timeScale = 1;
             Pausado = false;
+            Cursor.visible = false;
+
             PanelPausa.SetActive(false);
             PanelOpciones.SetActive(false);
             PanelControles.SetActive(false);
@@ -55,6 +60,8 @@ public class CanvasManagerInGame : MonoBehaviour {
     {
         Time.timeScale = 1;
         Pausado = false;
+        Cursor.visible = true;
+
         PanelPausa.SetActive(false);
         PanelOpciones.SetActive(false);
         PanelControles.SetActive(false);
@@ -242,6 +249,12 @@ public class CanvasManagerInGame : MonoBehaviour {
     }
 
     void Update () {
+
+        if(Input.GetKeyDown(KeyCode.V))
+        {
+            AnimacionCrosshair.SetBool("AnimacionCrosshair", true);
+        }
+
 
         MenuPausa();
 	}
