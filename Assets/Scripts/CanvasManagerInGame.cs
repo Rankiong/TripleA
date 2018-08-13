@@ -250,12 +250,6 @@ public class CanvasManagerInGame : MonoBehaviour {
 
     void Update () {
 
-        if(Input.GetKeyDown(KeyCode.V))
-        {
-            AnimacionCrosshair.SetBool("AnimacionCrosshair", true);
-        }
-
-
         MenuPausa();
 	}
 }

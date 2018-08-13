@@ -10,7 +10,7 @@ AnimatorController:
   m_AnimatorParameters: []
   m_AnimatorLayers:
   - serializedVersion: 5
-    m_Name: Base Layer
+    m_Name: Exterior
     m_StateMachine: {fileID: 1107426812151452024}
     m_Mask: {fileID: 0}
     m_Motions: []
@@ -21,14 +21,14 @@ AnimatorController:
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
---- !u!1102 &1102515583647757972
+--- !u!1102 &1102904098295920344
 AnimatorState:
   serializedVersion: 5
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Puntodemira3esxalado
-  m_Speed: 1
+  m_Name: New State
+  m_Speed: 0
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -52,11 +52,11 @@ AnimatorStateMachine:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Base Layer
+  m_Name: Exterior
   m_ChildStates:
   - serializedVersion: 1
-    m_State: {fileID: 1102515583647757972}
-    m_Position: {x: 288, y: 60, z: 0}
+    m_State: {fileID: 1102904098295920344}
+    m_Position: {x: 322.3565, y: 160.62538, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -66,4 +66,4 @@ AnimatorStateMachine:
   m_EntryPosition: {x: 60, y: 84, z: 0}
   m_ExitPosition: {x: 528, y: 72, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
-  m_DefaultState: {fileID: 1102515583647757972}
+  m_DefaultState: {fileID: 1102904098295920344}

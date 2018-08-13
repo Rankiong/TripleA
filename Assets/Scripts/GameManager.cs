@@ -4,24 +4,22 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
+    //Variables para la creacion de objetos
     public Camera CamaraPlayer;
     public GameObject PanelSinMateriales;
-    public LayerMask mask;
+    public LayerMask CuboMask;
+    public LayerMask ColeccionableMask;
     public float RangoRaycast;
     int ContadorDeCubos = 0;
     GameObject ObjetoPerdido = null;
 
-    private void Awake()
-    {
-        DontDestroyOnLoad(this.gameObject);
-    }
 
-    //Elimina objetos por filtro
+    //Funciones relacionadas con la creacion de objetos
     public void EliminarObjetos()
     {
         RaycastHit hit;
 
-        if(Physics.Raycast(CamaraPlayer.transform.position,CamaraPlayer.transform.forward, out hit, RangoRaycast, mask))
+        if(Physics.Raycast(CamaraPlayer.transform.position,CamaraPlayer.transform.forward, out hit, RangoRaycast, CuboMask))
         {
             if(Input.GetButtonDown("Fire1"))
             {
@@ -29,9 +27,15 @@ public class GameManager : MonoBehaviour {
                 ContadorDeCubos++;
             }
         }
-    }
 
-    //Crea objetos con filtro
+        if (Physics.Raycast(CamaraPlayer.transform.position, CamaraPlayer.transform.forward, out hit, RangoRaycast, ColeccionableMask))
+        {
+            if (Input.GetButtonDown("Fire1"))
+            {
+                Destroy(hit.transform.gameObject);
+            }
+        }
+    }
     public void CrearObjetos()
     {
         RaycastHit hit;
@@ -58,8 +62,6 @@ public class GameManager : MonoBehaviour {
             }
         }
     }
-
-    //Sistema de seguridad para devolver el ultimo objeto creado
     public void EliminarUltimoObjeto()
     {
         if(Input.GetKeyDown(KeyCode.Q))
@@ -72,13 +74,16 @@ public class GameManager : MonoBehaviour {
             }
         }
     }
-
-    //Corrutina de advertencia cuando no tienes materiales
     IEnumerator SinMateriales()
     {
         PanelSinMateriales.SetActive(true);
         yield return new WaitForSeconds(3f);
         PanelSinMateriales.SetActive(false);
+    }
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject);
     }
 
     private void Update()
