@@ -54,14 +54,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1881692926152844}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.88, z: -6.05}
+  m_LocalRotation: {x: -0, y: 0.677464, z: -0, w: 0.73555595}
+  m_LocalPosition: {x: 1732.407, y: 146.47, z: 1373.09}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4972764062937434}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 85.29201, z: 0}
 --- !u!4 &4972764062937434
 Transform:
   m_ObjectHideFlags: 1
@@ -83,8 +83,8 @@ Camera:
   m_GameObject: {fileID: 1719667571880754}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -125,7 +125,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!81 &81963605971809246
 AudioListener:
   m_ObjectHideFlags: 1
@@ -228,7 +228,7 @@ MonoBehaviour:
     stand: 2
     crouch: 1
   velocidad: 5
-  salto: 6
+  salto: 5
   correr: 8
   andar: 5
   agachar: 2.5

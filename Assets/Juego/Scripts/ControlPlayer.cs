@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public struct PlayerHeight
-{
-    public float stand;
-    public float crouch;
+//public struct PlayerHeight
+//{
+//    public float stand;
+//    public float crouch;
 
-    public PlayerHeight(float stand, float crouch)
-    {
-        this.stand = stand;
-        this.crouch = crouch;
-    }
-}
+//    public PlayerHeight(float stand, float crouch)
+//    {
+//        this.stand = stand;
+//        this.crouch = crouch;
+//    }
+//}
 
 public enum SurfaceInteraction
 {
@@ -24,12 +24,12 @@ public enum SurfaceInteraction
 
 public class ControlPlayer : MonoBehaviour
 {
-    public PlayerHeight height = new PlayerHeight(2F, 1F);
+    //public PlayerHeight height = new PlayerHeight(2F, 1F);
     public float velocidad;
     public float salto;
     public float correr;
     public float andar;
-    public float agachar;
+    //public float agachar;
     public float flotar;
     public float controlAereo = 0.25f;
     public float sensibilidad = 5.0f;
@@ -54,6 +54,8 @@ public class ControlPlayer : MonoBehaviour
     public ContactPoint Surface { get; protected set; }
     public Dictionary<Collider, Collision> Collisions { get; protected set; }
 
+    public bool IsJumping { get; private set; }
+
     void Awake()
     {
         Collisions = new Dictionary<Collider, Collision>();
@@ -68,7 +70,13 @@ public class ControlPlayer : MonoBehaviour
 
     void FixedUpdate()
     {
-        ProcessCollisions();
+        if (IsJumping)
+        {
+            SurfaceInteraction = SurfaceInteraction.Floating;
+            IsJumping = false;
+        }
+        else ProcessCollisions();
+
         Look();
         Movement();
     }
@@ -97,17 +105,17 @@ public class ControlPlayer : MonoBehaviour
     {
         cuerpo.useGravity = false;
 
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-            collider.height = height.crouch;
-        else if (Input.GetKeyUp(KeyCode.LeftControl))
-            collider.height = height.stand;
+        //if (Input.GetKeyDown(KeyCode.LeftControl))
+        //    collider.height = height.crouch;
+        //else if (Input.GetKeyUp(KeyCode.LeftControl))
+        //    collider.height = height.stand;
 
-        if (Input.GetKey(KeyCode.C))
-        {
-            velocidad = agachar;
-        }
-        else
-        {
+        //if (Input.GetKey(KeyCode.LeftControl))
+        //{
+        //    velocidad = agachar;
+        //}
+        
+        
             if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))
             {
                 isRunning = true;
@@ -118,7 +126,7 @@ public class ControlPlayer : MonoBehaviour
                 isRunning = false;
                 velocidad = andar;
             }
-        }
+        
         
         Vector3 direction = camara.transform.forward; direction.y = 0F;
 
@@ -134,26 +142,28 @@ public class ControlPlayer : MonoBehaviour
 
         cuerpo.velocity = plane * velocidad * p;
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
         {
             cuerpo.velocity += Vector3.up * salto;
+            IsJumping = true;
         }
     }
 
     void OnSlide()
     {
         cuerpo.useGravity = true;
-        collider.height = height.stand;
+        //collider.height = height.stand;
         velocidad = correr; //deslizarse
         isRunning = false;
     }
 
     void OnAir()
     {
-        /*Vector3 direction = camara.transform.forward; direction.y = 0F;
+        cuerpo.useGravity = !IsJumping;
+        
+        Vector3 direction = camara.transform.forward; direction.y = 0F;
         Quaternion rotation = Quaternion.FromToRotation(Vector3.forward, direction);
-
-        cuerpo.useGravity = true;
+        
         Vector3 bodyVelocity = cuerpo.velocity; bodyVelocity.y = 0F;
         Vector3 velocity = rotation * MovementAxis * controlAereo * Time.deltaTime;
         Vector3 newVelocity = bodyVelocity + velocity;
@@ -162,7 +172,7 @@ public class ControlPlayer : MonoBehaviour
             newVelocity = newVelocity.normalized * flotar;
 
         newVelocity.y = cuerpo.velocity.y;
-        cuerpo.velocity = newVelocity;*/
+        cuerpo.velocity = newVelocity;
     }
 
     protected void ProcessCollisions()
