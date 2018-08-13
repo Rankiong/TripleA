@@ -5,3 +5,4 @@ Temp/
 Assets/Morralla/
 *.csproj
 .vs/
+ProjectSettings/ProjectVersion.txt
