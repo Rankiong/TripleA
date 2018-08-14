@@ -265,6 +265,7 @@
     <Compile Include="Assets\Scripts\MantaRaya.cs" />
     <Compile Include="Assets\Scripts\RayaZone.cs" />
     <Compile Include="Assets\Scripts\SalaMovediza.cs" />
+    <Compile Include="Assets\Scripts\SalaPrincipioTeletransporte.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
