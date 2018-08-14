@@ -8,7 +8,7 @@ public class SalaPrincipioTeletransporte : MonoBehaviour {
     public static event _OnPrincipioTeletransporte OnPrincipioTeletransporte;
 
     public GameObject Coleccionable;
-    public GameObject Particulas;
+    public ParticleSystem Particulas;
     public Vector3 PosicionTeletransporte;
 
     private void OnTriggerEnter(Collider other)
@@ -20,7 +20,8 @@ public class SalaPrincipioTeletransporte : MonoBehaviour {
                 if (OnPrincipioTeletransporte != null)
                     OnPrincipioTeletransporte();
 
-                //other.transform.position = XXXXX
+                other.transform.position = PosicionTeletransporte;
+                Particulas.Play();
             }
         }
     }

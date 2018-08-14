@@ -6,6 +6,8 @@ TagManager:
   tags:
   - BaldosasPinchos
   - Fire
+  - BaldosasEnter
+  - BaldosasExit
   layers:
   - Default
   - TransparentFX

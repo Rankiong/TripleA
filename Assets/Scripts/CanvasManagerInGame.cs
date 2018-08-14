@@ -19,6 +19,20 @@ public class CanvasManagerInGame : MonoBehaviour {
 
     public Animator AnimacionCrosshair;
 
+    int pergaminos = 0;
+    public GameObject Pergamino1;
+    public GameObject Pergamino2;
+    public GameObject Pergamino3;
+    public ParticleSystem Particulas1;
+    public ParticleSystem Particulas2;
+    public ParticleSystem Particulas3;
+    public GameObject Panel1;
+    public GameObject Panel2;
+    public GameObject Panel3;
+    public GameObject Panel4;
+    public GameObject Panel5;
+    public GameObject Panel6;
+
     public TMP_Dropdown DropdownGraficos;
     public TMP_Dropdown DropdownResoluciones;
     public TMP_Dropdown DropdownFullscreen;
@@ -242,14 +256,80 @@ public class CanvasManagerInGame : MonoBehaviour {
         Screen.SetResolution(resolucion.width, resolucion.height, Screen.fullScreen);
     }
 
+    //Funciones de paneles importantes de informacion
+    public void PergaminosControl()
+    {
+        if(Pergamino1.activeSelf == false)
+        {
+            Particulas1.Stop();
+        }
+        if (Pergamino2.activeSelf == false)
+        {
+            Particulas2.Stop();
+        }
+        if (Pergamino3.activeSelf == false)
+        {
+            Particulas3.Stop();
+        }
+
+        if (Pergamino1.activeSelf == false || Pergamino2.activeSelf == false || Pergamino3.activeSelf == false)
+        {
+            pergaminos++;
+        }
+
+        if(pergaminos == 1)
+        {
+            StartCoroutine("PergaminoCorrutinaUno");
+        }
+        if(pergaminos == 2)
+        {
+            StartCoroutine("PergaminoCorrutinaUno");
+        }
+        if(pergaminos == 3)
+        {
+            StartCoroutine("PergaminoCorrutinaUno");
+        }
+    }
+
+    IEnumerator PergaminoCorrutinaUno()
+    {
+        if(pergaminos == 1)
+        {
+            Panel5.SetActive(true);
+            yield return new WaitForSeconds(3f);
+            Panel5.SetActive(false);
+        }
+        if(pergaminos == 2)
+        {
+            Panel6.SetActive(true);
+            yield return new WaitForSeconds(3f);
+            Panel6.SetActive(false);
+        }
+        if(pergaminos == 3)
+        {
+            Panel2.SetActive(true);
+            yield return new WaitForSeconds(3f);
+            Panel2.SetActive(false);
+        }
+
+    }
+
+    IEnumerator ComienzoHistoria()
+    {
+        Panel1.SetActive(true);
+        yield return new WaitForSeconds(5f);
+        Panel1.SetActive(false);
+    }
 
     private void Start()
     {
+        StartCoroutine("ComienzoHistoria");
         CambiandoResoluciones();
     }
 
     void Update () {
 
         MenuPausa();
+        PergaminosControl();
 	}
 }

@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour {
     public LayerMask CuboMask;
     public LayerMask ColeccionableMask;
     public float RangoRaycast;
-    int ContadorDeCubos = 0;
+    int ContadorDeCubos = 15;
     GameObject ObjetoPerdido = null;
 
 
