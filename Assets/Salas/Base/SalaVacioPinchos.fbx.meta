@@ -1,7 +1,5 @@
 fileFormatVersion: 2
 guid: 9cb03574fe2a9e742a58752d87697ce0
-timeCreated: 1533807445
-licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -35,6 +33,7 @@ ModelImporter:
     6400002: Plane
     6400004: Plane.001
     10800000: Lamp
+    2186277476908879412: ImportLogs
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -69,6 +68,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5

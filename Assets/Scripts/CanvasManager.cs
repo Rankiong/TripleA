@@ -4,8 +4,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class CanvasManager : MonoBehaviour {
+
+    public AudioMixer Master;
+    public AudioMixerGroup Music;
+    public AudioMixerGroup SFX;
 
     public GameObject PanelJugar;
     public GameObject PanelOpciones;
@@ -178,17 +183,22 @@ public class CanvasManager : MonoBehaviour {
         DropdownResoluciones.RefreshShownValue();
 
     }
-    public void PonerFullscreen()
+    public void PonerFullscreen(int a)
     {
         Resolution resolucion = Screen.currentResolution;
+        bool full = true;
 
-        if (DropdownFullscreen.value == 0)
+        if (a == 0)
         {
-            Screen.fullScreen = true;
+            full = true;
+            Resolution resolution = Screen.currentResolution;
+            Screen.SetResolution(resolution.width, resolution.height, full);
         }
-        if(DropdownFullscreen.value == 1)
+        if(a == 1)
         {
-            Screen.fullScreen = false;
+            full = false;
+            Resolution resolution = Screen.currentResolution;
+            Screen.SetResolution(resolution.width, resolution.height, full);
         }
     }
     public void PonerResolucion(int resolutionIndex)
@@ -196,6 +206,19 @@ public class CanvasManager : MonoBehaviour {
         Resolution resolucion = resoluciones[resolutionIndex];
         Screen.SetResolution(resolucion.width, resolucion.height, Screen.fullScreen);
     }
+    public void CambiandoMaster(float volumen)
+    {
+        Master.SetFloat("MasterVolumen", volumen);
+    }
+    public void CambiandoMusica(float volumen)
+    {
+        Music.audioMixer.SetFloat("MusicVolumen", volumen);
+    }
+    public void CambiandoSFX(float volumen)
+    {
+        SFX.audioMixer.SetFloat("SFXVolumen", volumen);
+    }
+
 
     //Funciones mas tecnicas relacionadas con escenas y .exe
     public void CargarEscenaPoblado()
@@ -207,17 +230,9 @@ public class CanvasManager : MonoBehaviour {
         Application.Quit();
     }
 
-    private void Awake()
-    {
-        DontDestroyOnLoad(this.gameObject);
-    }
-
     private void Start()
     {
         CambiandoResoluciones();
     }
 
-    private void Update()
-    {
-    }
 }

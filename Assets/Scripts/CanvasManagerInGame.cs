@@ -4,14 +4,34 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class CanvasManagerInGame : MonoBehaviour {
+
+    public static CanvasManagerInGame Instance;
+    ControlPlayer controlPlayer;
+
+    public AudioMixer Master;
+    public AudioMixerGroup Music;
+    public AudioMixerGroup SFX;
 
     public GameObject PanelPausa;
     public GameObject PanelOpciones;
     public GameObject PanelControles;
     public GameObject PanelMenuPrincipal;
     public GameObject PanelSalir;
+    public GameObject PanelCrosshair;
+    public Image PanelDesvanecimiento;
+    public GameObject PanelFinal;
+    public GameObject PanelUsarObjetos;
+    public GameObject PanelSinMateriales;
+
+    public Image Puntas;
+    public Image Triangulo;
+    public Image Puntas2;
+    public Image Triangulo2;
+
+    public Slider Sensibilidad;
 
     public GameObject SubPanelSonido;
     public GameObject SubPanelGraficos;
@@ -19,13 +39,12 @@ public class CanvasManagerInGame : MonoBehaviour {
 
     public Animator AnimacionCrosshair;
 
-    int pergaminos = 0;
-    public GameObject Pergamino1;
-    public GameObject Pergamino2;
-    public GameObject Pergamino3;
-    public ParticleSystem Particulas1;
-    public ParticleSystem Particulas2;
-    public ParticleSystem Particulas3;
+    //public GameObject Pergamino1;
+    //public GameObject Pergamino2;
+    //public GameObject Pergamino3;
+    //public ParticleSystem Particulas1;
+    //public ParticleSystem Particulas2;
+    //public ParticleSystem Particulas3;
     public GameObject Panel1;
     public GameObject Panel2;
     public GameObject Panel3;
@@ -36,9 +55,14 @@ public class CanvasManagerInGame : MonoBehaviour {
     public TMP_Dropdown DropdownGraficos;
     public TMP_Dropdown DropdownResoluciones;
     public TMP_Dropdown DropdownFullscreen;
+    public TMP_Dropdown DropdrownCrossahair;
 
     Resolution[] resoluciones;
-    bool Pausado = false;
+    public bool Pausado = false;
+    bool ComprobadorPergaminos = false;
+    bool Comprobador1 = false;
+    bool Comprobador2 = false;
+    bool Comprobador3 = false;
 
     //Funciones relacionadas con volver al menu principal, salir y resumir la partida
     public void MenuPausa()
@@ -49,7 +73,7 @@ public class CanvasManagerInGame : MonoBehaviour {
             Pausado = true;
             PanelPausa.SetActive(true);
             Cursor.visible = true;
-            //Apagar crosshair
+            PanelCrosshair.SetActive(false);
 
         }
         else if (Input.GetKeyDown(KeyCode.Escape) && Pausado == true)
@@ -67,7 +91,7 @@ public class CanvasManagerInGame : MonoBehaviour {
             SubPanelSonido.SetActive(false);
             SubPanelGraficos.SetActive(false);
             SubPanelCrosshair.SetActive(false);
-            //Encender crosshair
+            PanelCrosshair.SetActive(true);
         }
     }
     public void ResumeJuego()
@@ -85,7 +109,7 @@ public class CanvasManagerInGame : MonoBehaviour {
         SubPanelSonido.SetActive(false);
         SubPanelGraficos.SetActive(false);
         SubPanelCrosshair.SetActive(false);
-        //Encender crosshair
+        PanelCrosshair.SetActive(false);
     }
     public void SalirDelJuego()
     {
@@ -237,17 +261,22 @@ public class CanvasManagerInGame : MonoBehaviour {
         DropdownResoluciones.RefreshShownValue();
 
     }
-    public void PonerFullscreen()
+    public void PonerFullscreen(int a)
     {
         Resolution resolucion = Screen.currentResolution;
+        bool full = true;
 
-        if (DropdownFullscreen.value == 0)
+        if (a == 0)
         {
-            Screen.fullScreen = true;
+            full = true;
+            Resolution resolution = Screen.currentResolution;
+            Screen.SetResolution(resolution.width, resolution.height, full);
         }
-        if (DropdownFullscreen.value == 1)
+        if (a == 1)
         {
-            Screen.fullScreen = false;
+            full = false;
+            Resolution resolution = Screen.currentResolution;
+            Screen.SetResolution(resolution.width, resolution.height, full);
         }
     }
     public void PonerResolucion(int resolutionIndex)
@@ -255,70 +284,153 @@ public class CanvasManagerInGame : MonoBehaviour {
         Resolution resolucion = resoluciones[resolutionIndex];
         Screen.SetResolution(resolucion.width, resolucion.height, Screen.fullScreen);
     }
+    public void CambiandoCrosshair()
+    {
+        if(DropdrownCrossahair.value == 0)
+        {
+            Puntas.color = Color.red;
+            Triangulo.color = new Color(1, 0, 0, 0);
+            Puntas2.color = Color.red;
+            Triangulo2.color = new Color(1, 0, 0, 0);
+        }
+        if(DropdrownCrossahair.value == 1)
+        {
+            Puntas.color = Color.blue;
+            Triangulo.color = new Color(0, 0, 1, 0);
+            Puntas2.color = Color.blue;
+            Triangulo2.color = new Color(0, 0, 1, 0);
+        }
+        if(DropdrownCrossahair.value == 2)
+        {
+            Puntas.color = Color.cyan;
+            Triangulo.color = new Color(0, 1, 1, 0);
+            Puntas2.color = Color.cyan;
+            Triangulo2.color = new Color(0, 1, 1, 0);
+        }
+        if(DropdrownCrossahair.value == 3)
+        {
+            Puntas.color = Color.green;
+            Triangulo.color = new Color(0, 1, 0, 0);
+            Puntas2.color = Color.green;
+            Triangulo2.color = new Color(0, 1, 0, 0);
+        }
+        if(DropdrownCrossahair.value == 4)
+        {
+            Puntas.color = Color.yellow;
+            Triangulo.color = new Color(1, 0.92f, 0.016f, 0);
+            Puntas2.color = Color.yellow;
+            Triangulo2.color = new Color(1, 0.92f, 0.016f, 0);
+        }
+        if(DropdrownCrossahair.value == 5)
+        {
+            Puntas.color = Color.black;
+            Triangulo.color = new Color(0, 0, 0, 0);
+            Puntas2.color = Color.black;
+            Triangulo2.color = new Color(0, 0, 0, 0);
+        }
+        if(DropdrownCrossahair.value == 6)
+        {
+            Puntas.color = Color.white;
+            Triangulo.color = new Color(1, 1, 1, 0);
+            Puntas2.color = Color.white;
+            Triangulo2.color = new Color(1, 1, 1, 0);
+        }
+    }
+    public void CambiandoSensibilidad()
+    {
+        controlPlayer.sensibilidad = Sensibilidad.value;
+    }
+    public void CambiandoMaster(float volumen)
+    {
+        Master.SetFloat("MasterVolumen", volumen);
+    }
+    public void CambiandoMusica(float volumen)
+    {
+        Music.audioMixer.SetFloat("MusicVolumen", volumen);
+    }
+    public void CambiandoSFX(float volumen)
+    {
+        SFX.audioMixer.SetFloat("SFXVolumen", volumen);
+    }
 
     //Funciones de paneles importantes de informacion
-    public void PergaminosControl()
+    //public void PergaminosControl()
+    //{
+
+    //    if(Pergamino1.activeSelf == false && Comprobador1 == false)
+    //    {
+    //        StartCoroutine("PergaminoCorrutinaUno");
+    //        Particulas1.Stop();
+    //    }
+    //    if (Pergamino2.activeSelf == false && Comprobador2 == false)
+    //    {
+    //        StartCoroutine("PergaminoCorrutinaUno");
+    //        Particulas2.Stop();
+    //    }
+    //    if (Pergamino3.activeSelf == false && Comprobador3 == false)
+    //    {
+    //        StartCoroutine("PergaminoCorrutinaUno");
+    //        Particulas3.Stop();
+    //    }
+    //}
+
+    public void Instanciar()
     {
-        if(Pergamino1.activeSelf == false)
-        {
-            Particulas1.Stop();
-        }
-        if (Pergamino2.activeSelf == false)
-        {
-            Particulas2.Stop();
-        }
-        if (Pergamino3.activeSelf == false)
-        {
-            Particulas3.Stop();
-        }
-
-        if (Pergamino1.activeSelf == false || Pergamino2.activeSelf == false || Pergamino3.activeSelf == false)
-        {
-            pergaminos++;
-        }
-
-        if(pergaminos == 1)
-        {
-            StartCoroutine("PergaminoCorrutinaUno");
-        }
-        if(pergaminos == 2)
-        {
-            StartCoroutine("PergaminoCorrutinaUno");
-        }
-        if(pergaminos == 3)
-        {
-            StartCoroutine("PergaminoCorrutinaUno");
-        }
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(this);
+            }
+            else if (this != Instance)
+            {
+                Destroy(this.gameObject);
+            }
     }
 
-    IEnumerator PergaminoCorrutinaUno()
+    public void Desvanecimiento(float tiempo)
     {
-        if(pergaminos == 1)
-        {
-            Panel5.SetActive(true);
-            yield return new WaitForSeconds(3f);
-            Panel5.SetActive(false);
-        }
-        if(pergaminos == 2)
-        {
-            Panel6.SetActive(true);
-            yield return new WaitForSeconds(3f);
-            Panel6.SetActive(false);
-        }
-        if(pergaminos == 3)
-        {
-            Panel2.SetActive(true);
-            yield return new WaitForSeconds(3f);
-            Panel2.SetActive(false);
-        }
-
+            Color color = PanelDesvanecimiento.color;
+            color.a += Time.deltaTime * tiempo;
+            PanelDesvanecimiento.color = color;
     }
 
+    //Corrutinas
+    //IEnumerator PergaminoCorrutinaUno()
+    //{
+    //    if(Pergamino1.activeSelf == false && Comprobador1 == false)
+    //    {
+    //        Comprobador1 = true;
+    //        Panel5.SetActive(true);
+    //        yield return new WaitForSeconds(3f);
+    //        Panel5.SetActive(false);
+    //    }
+    //    if(Pergamino2.activeSelf == false && Comprobador2 == false)
+    //    {
+    //        Comprobador2 = true;
+    //        Panel6.SetActive(true);
+    //        yield return new WaitForSeconds(3f);
+    //        Panel6.SetActive(false);
+    //    }
+    //    if(Pergamino3.activeSelf == false && Comprobador3 == false)
+    //    {
+    //        Comprobador3 = true;
+    //        Panel2.SetActive(true);
+    //        yield return new WaitForSeconds(3f);
+    //        Panel2.SetActive(false);
+    //    }
+
+    //}
     IEnumerator ComienzoHistoria()
     {
         Panel1.SetActive(true);
         yield return new WaitForSeconds(5f);
         Panel1.SetActive(false);
+    }
+
+    private void Awake()
+    {
+        this.Instanciar();
+        controlPlayer = FindObjectOfType<ControlPlayer>();
     }
 
     private void Start()
@@ -329,7 +441,14 @@ public class CanvasManagerInGame : MonoBehaviour {
 
     void Update () {
 
+        CambiandoSensibilidad();
+        CambiandoCrosshair();
         MenuPausa();
-        PergaminosControl();
-	}
+        //PergaminosControl();
+
+        if(Input.GetKey(KeyCode.V) && Input.GetKey(KeyCode.B))
+        {
+            SceneManager.LoadScene(2);
+        }
+    }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
@@ -24,28 +25,42 @@ public enum SurfaceInteraction
 
 public class ControlPlayer : MonoBehaviour
 {
+    public static ControlPlayer Instance;
+    CanvasManagerInGame canvasmanageringame = CanvasManagerInGame.Instance;
+
+    bool Pausado = false;
+
     //public PlayerHeight height = new PlayerHeight(2F, 1F);
     public float velocidad;
     public float salto;
     public float correr;
     public float andar;
-    //public float agachar;
+    public float agachar;
     public float flotar;
     public float controlAereo = 0.25f;
     public float sensibilidad = 5.0f;
     public float smoothing = 2.0f;
     [Range(0F, 90F)]
     public float slopeAngle = 45F;
-    private AudioClip JumpSound;
-    private AudioClip StepSound;
+    AudioSource audioSource;
+    public AudioClip JumpSound;
+    public AudioClip FallSound;
+    public AudioClip StepSound;
+    public AudioClip RunSound;
 
+    bool isWalking;
+    bool isRunning;
     Camera camara;
     CapsuleCollider collider;
     Rigidbody cuerpo;
-    bool isRunning;
     bool agacharse;
     Vector2 mouseLook;
     Vector2 smoothV;
+    float andaraudiovelocidad = 0.4f;
+    float correraudiovelocidad = 0.2f;
+
+    float andaraudiotiempo = 0.0f;
+    float correraudiotiempo = 0.0f;
 
     public Vector3 MovementAxis { get { return new Vector3(Input.GetAxisRaw("Horizontal"), 0F, Input.GetAxisRaw("Vertical")); } }
     public Vector2 LookAxis { get { return new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")) * sensibilidad * smoothing; } }
@@ -64,8 +79,77 @@ public class ControlPlayer : MonoBehaviour
         cuerpo = GetComponent<Rigidbody>();
         collider = GetComponent<CapsuleCollider>();
         camara = GetComponentInChildren<Camera>();
+        audioSource = GetComponent<AudioSource>();
 
         Cursor.lockState = CursorLockMode.Locked;
+
+        this.Instanciar();
+    }
+
+    void Update()
+    {
+        if (velocidad > 4)
+        {
+            PlayFootsteps();
+        }
+        else
+        {
+            andaraudiotiempo = 0.0f;
+            correraudiotiempo = 0.0f;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape) && Pausado == false)
+        {
+            Cursor.lockState = CursorLockMode.Confined;
+            Pausado = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape) && Pausado == true)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Pausado = false;
+        }
+
+
+    }
+
+    void PlayFootsteps()
+    {
+        if (isWalking == true)
+        {
+            if (audioSource.clip != StepSound)
+            {
+                audioSource.Stop();
+                audioSource.clip = StepSound;
+            }
+
+            if (andaraudiotiempo > andaraudiovelocidad)
+            {
+                audioSource.Stop();
+                audioSource.Play();
+                andaraudiotiempo = 0.0f;
+            }
+        }
+        else if (isRunning == true)
+        {
+            if (audioSource.clip != RunSound)
+            {
+                audioSource.Stop();
+                audioSource.clip = RunSound;
+            }
+            if (correraudiotiempo > correraudiovelocidad)
+            {
+                audioSource.Stop();
+                audioSource.Play();
+                correraudiotiempo = 0.0f;
+            }
+        }
+        else
+        {
+            audioSource.Stop();
+        }
+
+        andaraudiotiempo += Time.deltaTime;
+        correraudiotiempo += Time.deltaTime;
     }
 
     void FixedUpdate()
@@ -83,22 +167,22 @@ public class ControlPlayer : MonoBehaviour
 
     void Look()
     {
-        smoothV = Vector2.Lerp(smoothV, LookAxis, 1F / smoothing);
+            smoothV = Vector2.Lerp(smoothV, LookAxis, 1F / smoothing);
 
-        mouseLook += smoothV;
-        mouseLook.y = Mathf.Clamp(mouseLook.y, -90f, 90f);
+            mouseLook += smoothV;
+            mouseLook.y = Mathf.Clamp(mouseLook.y, -90f, 90f);
 
-        camara.transform.localRotation = Quaternion.AngleAxis(mouseLook.x, Vector3.up) * Quaternion.AngleAxis(-mouseLook.y, Vector3.right);
+            camara.transform.localRotation = Quaternion.AngleAxis(mouseLook.x, Vector3.up) * Quaternion.AngleAxis(-mouseLook.y, Vector3.right);
     }
 
     void Movement()
     {
-        switch(SurfaceInteraction)
+        switch (SurfaceInteraction)
         {
             case SurfaceInteraction.Grounded: OnGround(); break;
             case SurfaceInteraction.Sliding: OnSlide(); break;
             case SurfaceInteraction.Floating: OnAir(); break;
-        }   
+        }
     }
 
     void OnGround()
@@ -114,20 +198,28 @@ public class ControlPlayer : MonoBehaviour
         //{
         //    velocidad = agachar;
         //}
-        
-        
-            if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        {
+            if (Input.GetKey(KeyCode.LeftShift))
             {
                 isRunning = true;
+                isWalking = false;
                 velocidad = correr;
             }
             else
             {
                 isRunning = false;
+                isWalking = true;
                 velocidad = andar;
             }
-        
-        
+        }
+        else
+        {
+            isWalking = false;
+            isRunning = false;
+        }
+
+
         Vector3 direction = camara.transform.forward; direction.y = 0F;
 
         Quaternion rotation = Quaternion.FromToRotation(Vector3.forward, direction);
@@ -144,6 +236,7 @@ public class ControlPlayer : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space))
         {
+            audioSource.PlayOneShot(JumpSound);
             cuerpo.velocity += Vector3.up * salto;
             IsJumping = true;
         }
@@ -154,16 +247,15 @@ public class ControlPlayer : MonoBehaviour
         cuerpo.useGravity = true;
         //collider.height = height.stand;
         velocidad = correr; //deslizarse
-        isRunning = false;
     }
 
     void OnAir()
     {
         cuerpo.useGravity = !IsJumping;
-        
+
         Vector3 direction = camara.transform.forward; direction.y = 0F;
         Quaternion rotation = Quaternion.FromToRotation(Vector3.forward, direction);
-        
+
         Vector3 bodyVelocity = cuerpo.velocity; bodyVelocity.y = 0F;
         Vector3 velocity = rotation * MovementAxis * controlAereo * Time.deltaTime;
         Vector3 newVelocity = bodyVelocity + velocity;
@@ -178,6 +270,10 @@ public class ControlPlayer : MonoBehaviour
     protected void ProcessCollisions()
     {
         SurfaceInteraction newInteraction = SurfaceInteraction;
+
+        var nulos = Collisions.Where(c => c.Key == null).ToArray();
+        foreach (var nulo in nulos)
+            Collisions.Remove(nulo.Key);
 
         if (Collisions.Count > 0)
         {
@@ -211,6 +307,7 @@ public class ControlPlayer : MonoBehaviour
 
     protected void OnCollisionEnter(Collision collision)
     {
+        audioSource.PlayOneShot(FallSound);
         if (!Collisions.ContainsKey(collision.collider))
             Collisions.Add(collision.collider, collision);
     }
@@ -225,5 +322,18 @@ public class ControlPlayer : MonoBehaviour
     {
         if (Collisions.ContainsKey(collision.collider))
             Collisions.Remove(collision.collider);
+    }
+
+    public void Instanciar()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(this);
+        }
+        else if(this != Instance)
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

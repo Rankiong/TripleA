@@ -20,6 +20,7 @@ public class DeathZonePinchos2 : MonoBehaviour {
         if(other.gameObject.CompareTag("Player"))
         {
             other.transform.position = posicionInicial;
+            other.transform.rotation = Quaternion.Euler(other.transform.rotation.x, 170, other.transform.rotation.z);
 
             for (int i = 0; i < BaldosasEnter.Length; i++)
             {

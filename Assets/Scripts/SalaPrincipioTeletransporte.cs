@@ -21,8 +21,17 @@ public class SalaPrincipioTeletransporte : MonoBehaviour {
                     OnPrincipioTeletransporte();
 
                 other.transform.position = PosicionTeletransporte;
-                Particulas.Play();
             }
+        }
+    }
+
+    private void Update()
+    {
+        Coleccionable.transform.Rotate(0, 1, 0);
+
+        if(Coleccionable.activeSelf == false)
+        {
+            Particulas.Play();
         }
     }
 }

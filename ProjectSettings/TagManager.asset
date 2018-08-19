@@ -8,6 +8,7 @@ TagManager:
   - Fire
   - BaldosasEnter
   - BaldosasExit
+  - Pergaminos
   layers:
   - Default
   - TransparentFX

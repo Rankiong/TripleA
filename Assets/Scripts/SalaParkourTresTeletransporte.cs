@@ -16,8 +16,16 @@ public class SalaParkourTresTeletransporte : MonoBehaviour
             if (Coleccionable.activeSelf == false)
             {
                 other.transform.position = PosicionTeletransporte;
-                Particulas.Play();
+                other.transform.rotation = Quaternion.Euler(other.transform.rotation.x, 170, other.transform.rotation.z);
             }
+        }
+    }
+
+    private void Update()
+    {
+        if (Coleccionable.activeSelf == false)
+        {
+            Particulas.Play();
         }
     }
 }

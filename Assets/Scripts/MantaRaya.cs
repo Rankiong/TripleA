@@ -12,7 +12,7 @@ public class MantaRaya : MonoBehaviour {
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            jugador.position = posicioninicial;
+            jugador.transform.position = posicioninicial;
         }    
     }
 }
